@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DragAndDrop from "./DragAndDropContainer";
 import { DataWithPosition } from "../types";
-import { mockData } from "../mockData";
+import { mockData } from "../mocks/mockData";
 
 const Content: React.FC = () => {
   const [data, setData] = useState<DataWithPosition[]>([]);
