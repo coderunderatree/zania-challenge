@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { SampleDataWithPosition } from "../mockData";
+import { DataWithPosition } from "../types";
 import Card from "./Card";
 
-type Item = SampleDataWithPosition;
+type Item = DataWithPosition;
 
 interface DragAndDropProps {
   data: Item[];
@@ -12,7 +12,7 @@ interface DragAndDropProps {
 const DragAndDrop: React.FC<DragAndDropProps> = ({ data }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [draggedItem, setDraggedItem] = useState<Item | null>(null);
-  const [items, setItems] = useState(data);
+  const [items, setItems] = useState<DataWithPosition[]>(data || []);
 
   useEffect(() => {
     setItems(data);
@@ -53,25 +53,20 @@ const DragAndDrop: React.FC<DragAndDropProps> = ({ data }) => {
     setDraggedItem(null);
   };
 
-  const createStyles = (item: Item) =>
-    isDragging && draggedItem?.type === item.type
-      ? "opacity-50 bg-slate-300"
-      : "";
-
   return (
     <div className="p-4" data-testid="content">
       <div className={`grid grid-cols-3 gap-4 justify-content-evenly `}>
         {items.map((item, index) => (
           <Card
+            key={`${item.type}-${item.title}`}
             cardPosition={index + 1}
             title={item.title}
-            imageSrc="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg"
-            key={`${item.type}-${item.title}`}
+            isDragging={isDragging && draggedItem?.type === item.type}
+            // handlers
             onDragStart={(e) => handleDragStart(e, item)}
             onDragOver={handleDragOver}
             onDrop={(e) => handleDrop(e, index)}
             onDragEnd={handleDragEnd}
-            styles={createStyles(item)}
           />
         ))}
       </div>
