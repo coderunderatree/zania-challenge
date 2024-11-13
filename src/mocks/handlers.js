@@ -4,7 +4,7 @@ import { mockData, mockCatImages } from "./mockData";
 
 export const handlers = [
   // Intercept "GET https://example.com/data" requests...
-  http.get("https://example.com/data", () => {
+  http.get("/data", () => {
     // ...and respond to them using this JSON response.
     return HttpResponse.json(mockData);
   }),
