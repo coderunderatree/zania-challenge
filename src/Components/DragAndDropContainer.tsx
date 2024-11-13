@@ -37,10 +37,10 @@ const DragAndDrop: React.FC<DragAndDropProps> = ({ data }) => {
 
     // Update the items array based on the drop target index
     const draggedItemIndex = items.findIndex(
-      (i) => i.type === draggedItem?.type
+      (i) => i.title === draggedItem?.title
     );
     const updatedItems = [...items];
-    if (draggedItem?.type && draggedItemIndex) {
+    if (draggedItem?.title && draggedItemIndex > -1) {
       updatedItems.splice(draggedItemIndex, 1);
       updatedItems.splice(dropTargetIndex, 0, draggedItem);
       setItems(updatedItems);
@@ -60,7 +60,7 @@ const DragAndDrop: React.FC<DragAndDropProps> = ({ data }) => {
             key={`${item.type}-${item.title}`}
             cardPosition={index + 1}
             title={item.title}
-            isDragging={isDragging && draggedItem?.type === item.type}
+            isDragging={isDragging && draggedItem?.title === item.title}
             // handlers
             onDragStart={(e) => handleDragStart(e, item)}
             onDragOver={handleDragOver}
