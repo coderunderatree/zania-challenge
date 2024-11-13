@@ -1,0 +1,10 @@
+services:
+  react-app:
+    build: .
+    ports:
+      - "5000:3000" # Map port 3000 of the container to port 5000 on the host
+    volumes:
+      - .:/app # Mount current directory (source code) to /app inside container
+    environment:
+      - NODE_ENV=development # Ensure that the app runs in dev mode
+    command: npm start # Start the React development server
