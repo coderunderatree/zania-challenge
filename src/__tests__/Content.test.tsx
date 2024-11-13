@@ -16,6 +16,7 @@ describe("Content", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   test("Is rendered", async () => {
     render(<Content />);
     expect(await screen.findByTestId("content")).toBeInTheDocument();

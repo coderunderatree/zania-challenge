@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 import { CatApiResponse } from "../types";
+import ImageOverlay from "./ImageOverlay";
 
 type DragHandler = (e: React.DragEvent<HTMLDivElement>) => void;
 interface CardProps {
@@ -21,6 +22,7 @@ const Card: React.FC<CardProps> = ({
   onDragEnd,
   onDrop,
 }) => {
+  const [overlay, setOverlay] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errCat, setErrCat] = useState(false);
   const [imgSrc, setImgSrc] = useState("");
@@ -39,6 +41,9 @@ const Card: React.FC<CardProps> = ({
       });
   }, []);
 
+  const handleOpen = useMemo(() => () => setOverlay(true), []);
+  const handleClose = useMemo(() => () => setOverlay(false), []);
+
   let allStyles = isDragging ? "opacity-50 bg-slate-300" : "";
   return (
     <div
@@ -49,18 +54,26 @@ const Card: React.FC<CardProps> = ({
       onDrop={onDrop}
       onDragEnd={onDragEnd}
       className={`border border-black p-2 text-center rounded-md justify-center cursor-pointer ${allStyles}`}
+      onClick={handleOpen}
     >
       <p className="pb-2" data-testid={`card-${position}-title`}>
         {title}
       </p>
       {isLoading && <LoadingSpinner />}
       {!isLoading && (
-        <img
-          src={imgSrc}
-          alt={`thumbnail ${errCat}`}
-          className="max-h-[360px] w-fit mx-auto "
-          data-testid={`card-${position}-thumbnail`}
-        />
+        <>
+          <img
+            src={imgSrc}
+            alt={`thumbnail ${errCat}`}
+            className="max-h-[360px] w-fit mx-auto "
+            data-testid={`card-${position}-thumbnail`}
+          />
+          <ImageOverlay
+            isOpen={overlay}
+            imageUrl={imgSrc}
+            onClose={handleClose}
+          />
+        </>
       )}
     </div>
   );

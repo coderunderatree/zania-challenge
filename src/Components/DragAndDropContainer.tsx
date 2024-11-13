@@ -6,7 +6,6 @@ type Item = DataWithPosition;
 
 interface DragAndDropProps {
   data: Item[];
-  // onItemsChanged: (items: Item[]) => void;
 }
 
 const DragAndDrop: React.FC<DragAndDropProps> = ({ data }) => {
