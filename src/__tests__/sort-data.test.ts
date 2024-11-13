@@ -2,11 +2,11 @@
  * @testEnvironment node
  */
 import { sortBasedOnPostion } from "../helpers/sort-data";
-import { SampleDataWithPosition } from "../mockData";
+import { DataWithPosition } from "../types";
 
 describe("Sort data", () => {
   test("Sorts ascending based on position", () => {
-    const mockData: SampleDataWithPosition[] = [
+    const mockData: DataWithPosition[] = [
       {
         title: "a",
         type: "a",

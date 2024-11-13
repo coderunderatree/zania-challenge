@@ -1,13 +1,6 @@
-export interface SampleData {
-  type: string;
-  title: string;
-}
+import { DataWithPosition } from "./types";
 
-export interface SampleDataWithPosition extends SampleData {
-  position: number;
-}
-
-export const mockData: SampleDataWithPosition[] = [
+export const mockData: DataWithPosition[] = [
   { type: "bankdraft", title: "Bank Draft", position: 0 },
   { type: "bill-of-lading", title: "Bill of Lading", position: 1 },
   { type: "invoice", title: "Invoice", position: 2 },
